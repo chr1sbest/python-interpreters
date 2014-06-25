@@ -16,7 +16,7 @@ class IntAexp(Aexp):
         self.i = i
 
     def __repr__(self):
-        return 'IntAexp(%d)' % self.i
+        return 'IntAexp({0})'.format(self.i)
 
 
 class VarAexp(Aexp):
@@ -24,7 +24,7 @@ class VarAexp(Aexp):
         self.name = name
 
     def __repr__(self):
-        return 'VarAexp(%s)' % self.name
+        return 'VarAexp({0})'.format(self.name)
 
 
 class BinopAexp(Aexp):
@@ -34,4 +34,4 @@ class BinopAexp(Aexp):
         self.right = right
 
     def __repr__(self):
-        return 'BinopAexp(%s, %s, %s)' % (self.op, self.left, self.right)
+        return 'BinopAexp({0], {1}, {2})'.format(self.op, self.left, self.right)

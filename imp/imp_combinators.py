@@ -122,4 +122,33 @@ class Lazy(Parser):
             self.parser = self.parser_func()
         return self.parser(tokens, pos)
 
+class Phrase(Parser):
+    def __init__(self, parser):
+        self.parser = parser
+    
+    def __call__(self, tokens, pos):
+        result = self.parser(tokens, pos)
+        if result and result.pos == len(tokens):
+            return result
+        return None
 
+
+class Exp(Parser):
+    def __init__(self, parser, separator):
+        self.parser = parser
+        self.separator = separator
+
+    def __call__(self, tokens, pos):
+        result = self.parser(tokens, pos)
+
+        def process_next(parsed):
+            (sepfunc, right) = parsed
+            return sepfunc(result.value, right)
+        next_parser = self.separator + self.parser ^ process_next
+
+        next_result = result
+        while next_result:
+            next_result = next_parser(tokens, result.pos)
+            if next_result:
+                result = next_result
+        return result  

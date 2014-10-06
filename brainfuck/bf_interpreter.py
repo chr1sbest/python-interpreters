@@ -14,14 +14,18 @@ class Tape(object):
 
     def get(self):
         return self.thetape[self.position]
+
     def increment(self):
         self.thetape[self.position] += 1
+
     def decrement(self):
         self.thetape[self.position] -= 1
+
     def advance(self):
         self.position += 1
         if len(self.thetape) <= self.position:
             self.thetape.append(0)
+
     def devance(self):
         self.position -= 1
 
